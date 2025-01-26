@@ -1,40 +1,48 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const { process_params } = require("express/lib/router");
 
 const userSchema = new mongoose.Schema({
-  name:{
+  name: {
     type: String,
     required: true,
     unique: true,
     minlegnth: 3,
-    maxlength: 30
+    maxlength: 30,
   },
-  email:{
+  email: {
     type: String,
     required: true,
     unique: true,
     minlegnth: 3,
-    maxlength: 30
+    maxlength: 30,
   },
   password: {
     type: String,
     required: true,
     minlegnth: 8,
-    maxlength: 10
+    maxlength: 10,
   },
-  admin:{
+  admin: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  timestamps: true 
+  timestamps: true,
 });
 
-userSchema.pre('save', async function(next){
-  if(this.isModified('password')){
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });
 
-module.exports = mongoose.model('User', userSchema );
+userSchema.methods.comparePassword = async function (password) {
+  return (
+    jwt.sing({ id: this._id, admin: this.admin }),
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
+};
 
+module.exports = mongoose.model("User", userSchema);
