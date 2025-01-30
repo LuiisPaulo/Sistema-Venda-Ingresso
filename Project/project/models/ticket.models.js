@@ -21,6 +21,14 @@ const ticketSchema = new mongoose({
         unique: true
     },
 
+    type:{
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 2,
+        maxlength: 20
+    },
+
     timestamps: true,
 });
 
