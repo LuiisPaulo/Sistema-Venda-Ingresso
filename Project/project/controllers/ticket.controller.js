@@ -1,7 +1,7 @@
 const ticketModel = require('../models/ticket.models');
 
 // para criar um ticket novo 
-exports.create = async (req, res) => {
+exports.createTicket = async (req, res) => {
     const { name, price,quantity, type } = req.body;
     try{
         let ticket = new ticket({ name, price, quantity, type });
@@ -21,7 +21,7 @@ exports.create = async (req, res) => {
 }
 
 // para buscar todos os tickets 
-exports.getAll = async (req, res) => {
+exports.getAllTickets = async (req, res) => {
     try{
         let tickets = await ticket.findAll();
         res.status(200).json({ tickets });
@@ -41,7 +41,7 @@ exports.getById = async (req, res) => {
 }
 
 // para atualizar o ticket 
-exports.update = async (req, res) => {
+exports.updateTicket = async (req, res) => {
     try{
         let ticket = await ticket.findById(req.params.id);
         if(!ticket){
@@ -59,7 +59,7 @@ exports.update = async (req, res) => {
 }
 
 // para deletar o ticket 
-exports.delete = async (req, res) => { 
-
+exports.deleteTicket = async (req, res) => { 
+    
 }
 
