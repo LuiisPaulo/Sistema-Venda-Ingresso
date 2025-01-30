@@ -1,0 +1,1 @@
+const purchaseTicketModel = require('../models/purchaseTicket.models');
