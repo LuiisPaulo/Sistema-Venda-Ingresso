@@ -19,6 +19,10 @@ const purchaseTicketSchema = new mongoose({
         required: true,
         unique: true
     },
+    totalPrice:{
+        type: Number,
+        required: true,
+    },
 
     timestamps: true,
 });
