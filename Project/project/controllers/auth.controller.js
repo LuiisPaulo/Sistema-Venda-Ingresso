@@ -4,19 +4,20 @@ const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
     const { name, email, password } = req.body;
-    const user = new User({ name, email, password });
+    const user = new userModel({ name, email, password });
     user.save();
     try{
         res.status(201).json({ message: 'Usuario cadastrado com sucesso'});
     }catch(err){
         res.status(500).json({ message: 'Erro ao cadastrar o usuario' });;
     }
+    res.redirect('/login');
 }
 
 exports.login = async (req, res) => {
     const { name, email, password } = req.body;
     try{
-        const user = User.findOne({ name, email });
+        const user = userModel.findOne({ name, email });
         if(!user){
             throw new Error('Usuário não encontrado');
         }

@@ -15,10 +15,13 @@ exports.purchaseTicket = async (req, res) => {
       return res.status(400).json({ message: "Quantidade insuficiente" });
     }
 
-    const purchase = new Purchase({
+    ticket.quantity -= quantity;
+    await ticket.save();
+    
+    const purchase = new purchaseTicketModel({
       user: userId,
       ticket: ticketId,
-      quantity: ticket.quantiy -= quantity,
+      quantity: quantity,
       totalPrice: ticket.price * quantity
     });
     await purchase.save();
