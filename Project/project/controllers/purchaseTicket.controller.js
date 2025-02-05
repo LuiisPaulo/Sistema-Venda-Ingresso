@@ -1,6 +1,6 @@
 const purchaseTicketModel = require("../models/purchaseTicket.models");
 const ticketModel = require("../models/ticket.models");
-const userModel = require("../models/user.models");
+// const userModel = require("../models/user.models");
 
 exports.purchaseTicket = async (req, res) => {
   try {
