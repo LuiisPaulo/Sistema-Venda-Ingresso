@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const { validation } = require('./middlewares/validation.middlewares');
 const errorHandler = require('./utils/errorHanderls');
-const userRoutes = require('./routes/user.routes');
 const authRoutes = require('./routes/auth.routes');
 const ticketRoutes = require('./routes/ticket.routes');
 const purchaseTicketRoutes = require('./routes/purchaseTicket.routes');

@@ -23,7 +23,7 @@ exports.createTicket = async (req, res) => {
 // para buscar todos os tickets 
 exports.getAllTickets = async (req, res) => {
     try{
-        let tickets = await ticket.findAll();
+        let tickets = await ticketModel.findAll();
         res.status(200).json({ tickets });
     }catch(err){
         res.status(500).json({ message: 'Erro ao buscar os tickets' });

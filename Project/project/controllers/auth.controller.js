@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
     const { name, email, password } = req.body;
-    const user = new UserActivation({ name, email, password });;
+    const user = new User({ name, email, password });
     user.save();
     try{
         res.status(201).json({ message: 'Usuario cadastrado com sucesso'});
@@ -21,9 +21,9 @@ exports.login = async (req, res) => {
             throw new Error('Usuário não encontrado');
         }
         if(!(await bcrypt.compare(password, user.password))){
-        throw new Error('Senha incorreta');;
+            throw new Error('Senha incorreta');
         }
-        const token = jwt.sign({ id: user_id, name: user.name, email: user.email, role: user.role}, 'secret key', { expiresIn: '1h' });
+        const token = jwt.sign({ id: user,_id, name: user.name, email: user.email, role: user.role}, 'secret key', { expiresIn: '1h' });
         res.json({ token });
     }catch(err){
         res.status(400).json({ message: err.message });

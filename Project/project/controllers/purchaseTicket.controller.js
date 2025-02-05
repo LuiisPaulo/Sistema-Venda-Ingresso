@@ -6,7 +6,6 @@ exports.purchaseTicket = async (req, res) => {
   try {
     const { ticketId, quantity } = req.body;
     const userId = req.user.userId;
-
     const ticket = await ticketModel.findById(ticketId);
     if (!ticket) {
       return res.status(400).json({ message: "Ticket nao encontrado" });
@@ -19,8 +18,8 @@ exports.purchaseTicket = async (req, res) => {
     const purchase = new Purchase({
       user: userId,
       ticket: ticketId,
-      quantity: ticket.quantiy - quantity,
-      totalPrice: ticket.price * quantiy
+      quantity: ticket.quantiy -= quantity,
+      totalPrice: ticket.price * quantity
     });
     await purchase.save();
     return res
