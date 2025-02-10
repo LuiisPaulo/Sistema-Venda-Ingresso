@@ -1,7 +1,6 @@
 import purchaseModel from '../models/purchase.model';
 import ticketModel from '../models/ticket.models';
 
-// TODO -> criar função de compra
 exports.buyTicket = async (req, res) => {
     const { ticketId, quantity } = req.body;
     const ticket = await ticketModel.findById(ticketId);
@@ -31,7 +30,6 @@ exports.buyTicket = async (req, res) => {
 };
 
 
-// TODO -> criar função para verificar historico de compra
 exports.viewPurchase = async (req, res) => {
     const { id } = req.params;
     try{

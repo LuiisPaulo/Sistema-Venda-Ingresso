@@ -1,7 +1,6 @@
 import ticketModel from '../models/ticket.models';
 
 exports.getAllTickets = async function (req, res) {
-// Todo arrumar
     try{
         let ticket = await ticketModel.find();
         return res.status(200).json(ticket);
@@ -10,7 +9,6 @@ exports.getAllTickets = async function (req, res) {
     }
 };
 
-// TODO - implementar depois pesquisa via ID ou nome do ticket (tipo)
 exports.getElementById = async (req, res) => {
     const { id } = req.params;
     try{
@@ -24,7 +22,6 @@ exports.getElementById = async (req, res) => {
     }
 }
 
-// Todo melhorar
 exports.createTicket = async (req, res) => {
 
     // verifica se o usuario tem credenciais de administrador
@@ -47,7 +44,6 @@ exports.createTicket = async (req, res) => {
     }
 };
 
-// Todo melhorar
 exports.updateTicket = async (req, res) => {
 
     // Verificar admin
