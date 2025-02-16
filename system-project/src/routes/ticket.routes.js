@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import ticketController from '../controllers/ticket.controller';
+import ticketController from '../controllers/ticket.controller.js';
 
 router.post('/ticket', ticketController.createTicket);
 
-exports.modules = router;
+export default router;

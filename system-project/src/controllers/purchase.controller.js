@@ -1,7 +1,7 @@
-import purchaseModel from '../models/purchase.models';
-import ticketModel from '../models/ticket.models';
+import purchaseModel from '../models/purchase.models.js';
+import ticketModel from '../models/ticket.models.js';
 
-exports.buyTicket = async (req, res) => {
+export async function buyTicket (req, res){
     const { ticketId, quantity } = req.body;
     const ticket = await ticketModel.findById(ticketId);
     try{
@@ -30,7 +30,7 @@ exports.buyTicket = async (req, res) => {
 };
 
 
-exports.viewPurchase = async (req, res) => {
+export async function viewPurchase(req, res) {
     const { id } = req.params;
     try{
         const purchase = await purchaseModel.find({ user: req.user._id, id }).populate('ticket');
@@ -42,3 +42,10 @@ exports.viewPurchase = async (req, res) => {
         return res.status(500).json({error: 'Erro ao visualizar a compra'});
     }
 };
+
+const purchaseController = {
+    buyTicket,
+    viewPurchase,
+};
+
+export default purchaseController;

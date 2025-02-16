@@ -3,13 +3,13 @@ import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
 import mustache from 'mustache-express';
 import path from 'path';
-import database from '../src/config/db';
-import router from './routes/auth.routes';
-import validation from './middlwares/validation';
-import ticketRoutes from '../src/routes/ticket.routes';
-import purchaseRoutes from '../src/routes/purchase.routes';
-import viewsRoutes from '../src/routes/views.routes';
-import swagger from '../src/swagger/documentation';
+import database from '../src/config/db.js';
+import router from '../src/routes/auth.routes.js';
+import validation from '../src/middlwares/validation.js';
+import ticketRoutes from '../src/routes/ticket.routes.js';
+import purchaseRoutes from '../src/routes/purchase.routes.js';
+import viewsRoutes from '../src/routes/views.routes.js';
+import swagger from '../src/swagger/documentation.js';
 
 
 // requerindo variaveis do ambiente
@@ -30,7 +30,7 @@ app.use(express.static('public'));
 
 // tamplate
 app.use(viewsRoutes);
-app.engine('mustache', mustacheExpress());
+app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
 

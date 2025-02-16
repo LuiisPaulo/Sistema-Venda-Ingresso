@@ -22,4 +22,5 @@ const purchaseSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Ticket', purchaseSchema);
+const purchaseModel = mongoose.model('Purchase', purchaseSchema);
+export default purchaseModel;

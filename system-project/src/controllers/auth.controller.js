@@ -1,8 +1,8 @@
-import userModel from '../models/user.models';
+import userModel from '../models/user.models.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-exports.register = async function (req, res) {
+export async function register(req, res) {
     const { name, email, password } = req.body;
     let user = new User({ name, email, password });
     user.save();
@@ -10,7 +10,7 @@ exports.register = async function (req, res) {
     user.redirect('/login');
 };
 
-exports.login = async (req, res) => {
+export async function login(req, res) { 
     const { email, password } = req.body;
     let user = await userModel.find({ email });
     if (!user || !await bcrypt.compare(password, user.password)) {
@@ -21,4 +21,9 @@ exports.login = async (req, res) => {
 
 };
 
+const authController = {
+    register,
+    login,
+};
 
+export default authController;

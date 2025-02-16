@@ -1,6 +1,6 @@
-import ticketModel from '../models/ticket.models';
+import ticketModel from '../models/ticket.models.js';
 
-exports.getAllTickets = async function (req, res) {
+export async function getAllTickets(req, res) {
     try{
         let ticket = await ticketModel.find();
         return res.status(200).json(ticket);
@@ -9,7 +9,7 @@ exports.getAllTickets = async function (req, res) {
     }
 };
 
-exports.getElementById = async (req, res) => {
+export async function getElementById(req, res) {
     const { id } = req.params;
     try{
         const ticket = await ticketModel.findById(id);
@@ -22,7 +22,7 @@ exports.getElementById = async (req, res) => {
     }
 }
 
-exports.createTicket = async (req, res) => {
+export async function createTicket(req, res) {
 
     // verifica se o usuario tem credenciais de administrador
     if(req.user.role !== "admin"){
@@ -44,7 +44,7 @@ exports.createTicket = async (req, res) => {
     }
 };
 
-exports.updateTicket = async (req, res) => {
+export async function updateTicket(req, res){
 
     // Verificar admin
     if(req.user.role !== "admin"){
@@ -74,7 +74,7 @@ exports.updateTicket = async (req, res) => {
 
 };
 
-exports.deleteTicket = async (req, res) => {
+export async function deleteTicket(req, res) {
     // Verificar admin
     if(req.user.role !== "admin"){
         res.status(403).json({ message: "Acesso negado"});
@@ -92,3 +92,13 @@ exports.deleteTicket = async (req, res) => {
         return res.status(500).json({error: 'Erro ao tentar deletar o ticket '});
     }
 };
+
+const ticketController = {
+    getAllTickets,
+    getElementById,
+    createTicket,
+    updateTicket,
+    deleteTicket,
+};
+
+export default ticketController;
