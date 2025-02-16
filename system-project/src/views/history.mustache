@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de Compras</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="list-container">
+        <h2>Histórico de Compras</h2>
+        <ul>
+            {{#purchases}}
+            <li>
+                <a href="/purchase/{{_id}}">
+                    {{ticketType.name}} - Quantidade: {{quantity}} - Data: {{date}}
+                </a>
+            </li>
+            {{/purchases}}
+        </ul>
+        <a href="/dashboard">Voltar</a>
+    </div>
+</body>
+</html>

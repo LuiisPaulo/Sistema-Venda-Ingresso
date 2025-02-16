@@ -1,4 +1,4 @@
-import purchaseModel from '../models/purchase.model';
+import purchaseModel from '../models/purchase.models';
 import ticketModel from '../models/ticket.models';
 
 exports.buyTicket = async (req, res) => {
@@ -40,5 +40,5 @@ exports.viewPurchase = async (req, res) => {
         res.reder('/history', { purchase });
     }catch(err){
         return res.status(500).json({error: 'Erro ao visualizar a compra'});
-    }; 
+    }
 };
