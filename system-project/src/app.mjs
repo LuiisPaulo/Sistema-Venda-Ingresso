@@ -1,48 +1,52 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
-import mustache from 'mustache-express';
+import mustacheExpress from 'mustache-express';
 import path from 'path';
 import database from '../src/config/db.js';
 import router from '../src/routes/auth.routes.js';
-import validation from '../src/middlwares/validation.js';
+//import validation from '../src/middlwares/validation.js';
 import ticketRoutes from '../src/routes/ticket.routes.js';
 import purchaseRoutes from '../src/routes/purchase.routes.js';
 import viewsRoutes from '../src/routes/views.routes.js';
 import swagger from '../src/swagger/documentation.js';
+import dotenv from 'dotenv';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
+// Requerindo variáveis do ambiente
+dotenv.config();
 
-// requerindo variaveis do ambiente
-require('dotenv').config();
+// Iniciando o framework express
+const app = express();
 
-// iniciando o framework express
-const app = express ();
-
-// conectando banco de dados
+// Conectando banco de dados
 database();
 
 app.use(express.json());
-app.use(express.unlercoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
+// Template
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// tamplate
 app.use(viewsRoutes);
-app.engine('mustache', mustache());
+app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
 
-// documentacao
+// Documentação
 swagger(app);
 
-//rotas
+// Rotas
 app.use(router);
 app.use(ticketRoutes);
 app.use(purchaseRoutes);
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor iniciado`);
+    console.log(`Servidor iniciado na porta ${PORT}`);
 });
-

@@ -1,6 +1,6 @@
 import express from 'express';
-
 const router = express.Router();
+import validation from '../middlwares/validation.js';
 
 
 // TODO pagina de login
@@ -13,7 +13,7 @@ router.get('/register', async (req, res) => {
 });
 
 // Todo dahsboard
-router.get('/dashboard',authMiddleware, async (req, res) => {
+router.get('/dashboard',validation, async (req, res) => {
     const tickets = await Ticket.find();
     res.render('/dashboard', {name: req.user.name, tickets});
 });
