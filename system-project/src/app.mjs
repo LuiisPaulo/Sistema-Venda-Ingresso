@@ -9,7 +9,6 @@ import router from '../src/routes/auth.routes.js';
 import ticketRoutes from '../src/routes/ticket.routes.js';
 import purchaseRoutes from '../src/routes/purchase.routes.js';
 import viewsRoutes from '../src/routes/views.routes.js';
-import swagger from '../src/swagger/documentation.js';
 import dotenv from 'dotenv';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -41,8 +40,6 @@ app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, '..', 'src', 'views'));
 
-// Documentação
-swagger(app);
 
 // Rotas
 app.use(viewsRoutes)
