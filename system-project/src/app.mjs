@@ -21,7 +21,11 @@ dotenv.config();
 const app = express();
 
 // Conectando banco de dados
-database();
+database().then(() => {
+    console.log('Servidor iniciado na porta', process.env.PORT || 3000);
+}).catch((err) => {
+    console.error('Erro ao iniciar servidor:', err);
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -48,5 +52,5 @@ app.use(purchaseRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor iniciado na porta ${PORT}`);
+    console.log(`Servidor iniciado na porta http://localhost:${PORT}`);
 });
