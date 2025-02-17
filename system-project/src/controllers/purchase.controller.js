@@ -1,47 +1,54 @@
 import purchaseModel from '../models/purchase.models.js';
 import ticketModel from '../models/ticket.models.js';
 
-export async function buyTicket (req, res){
+export async function buyTicket(req, res) {
     const { ticketId, quantity } = req.body;
-    const ticket = await ticketModel.findById(ticketId);
-    try{
-        if(!ticket || !quantity){
-            return res.status(404).json({ message: "Erro ao encontrar o ticket" });
+
+    try {
+        const ticket = await ticketModel.findById(ticketId);
+        if (!ticket) {
+            return res.status(404).json({ message: "Ticket não encontrado" });
         }
 
-        if(ticket.quantity < quantity){
-            return res.status(400).json({ message: "Quantidade insuficiente" });
+        if (!quantity || quantity <= 0) {
+            return res.status(400).json({ message: "Quantidade inválida" });
+        }
+
+        if (ticket.quantity < quantity) {
+            return res.status(400).json({ message: "Quantidade insuficiente em estoque" });
         }
 
         ticket.quantity -= quantity;
         await ticket.save();
 
         const purchase = await purchaseModel.create({
-            user: req.user._id,
+            user: req.user._id, // Certifique-se de que req.user._id está disponível
             ticket: ticket._id,
             quantity,
         });
 
         res.redirect('/history');
-
-    }catch(err){
-        return res.status(500).json({error: 'Erro ao realizar a compra'});
-    } 
-};
-
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Erro ao realizar a compra' });
+    }
+}
 
 export async function viewPurchase(req, res) {
     const { id } = req.params;
-    try{
-        const purchase = await purchaseModel.find({ user: req.user._id, id }).populate('ticket');
-        if(!purchase){
-            return res.status(404).json({ message: "Erro ao encontrar a compra" });
+
+    try {
+        const purchase = await purchaseModel.findOne({ _id: id, user: req.user._id }).populate('ticket');
+        if (!purchase) {
+            return res.status(404).json({ message: "Compra não encontrada" });
         }
-        res.reder('/history', { purchase });
-    }catch(err){
-        return res.status(500).json({error: 'Erro ao visualizar a compra'});
+
+        res.render('history', { purchase });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Erro ao visualizar a compra' });
     }
-};
+}
 
 const purchaseController = {
     buyTicket,

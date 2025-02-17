@@ -7,7 +7,7 @@ const options = {
         info: {
             title: 'API de Venda de Ingressos',
             version: '1.0.0',
-            description: 'Documentação da API de venda de ingressos'
+            description: 'Documentação da API de venda de ingressos',
         },
     },
     apis: ['./routes/*.js'],
