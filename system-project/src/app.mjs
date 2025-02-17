@@ -37,15 +37,15 @@ app.use(express.static('public'));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-app.use(viewsRoutes);
 app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '..', 'src', 'views'));
 
 // Documentação
 swagger(app);
 
 // Rotas
+app.use(viewsRoutes)
 app.use(router);
 app.use(ticketRoutes);
 app.use(purchaseRoutes);
